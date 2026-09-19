@@ -14,6 +14,9 @@ def update_market_data():
     else:
         data = {}
 
+    import datetime
+    current_month_str = datetime.datetime.now().strftime('%Y-%m')
+
     for symbol in symbols:
         print(f"Fetching data for {symbol}...")
         ticker = yf.Ticker(symbol)
@@ -25,11 +28,15 @@ def update_market_data():
             print(f"Warning: No data found for {symbol}.")
             continue
             
-        if symbol not in data:
-            data[symbol] = {}
+        # Clear existing data for the symbol to prevent discontinuities if yfinance adjusts prices
+        data[symbol] = {}
             
         for date, row in hist.iterrows():
             month_str = date.strftime('%Y-%m')
+            
+            # Skip the current month since it hasn't ended and the adjusted close is incomplete
+            if month_str >= current_month_str:
+                continue
             
             # yfinance returns 'Close' as the adjusted close price
             close_price = row['Close']
