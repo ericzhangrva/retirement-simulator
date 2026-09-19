@@ -10,9 +10,13 @@ A lightweight, fully client-side web application designed to rigorously simulate
 - **High-Fidelity Visualizations**: Interactive, responsive charts powered by Chart.js that overlay continuous monthly balance compounding onto categorical yearly contribution bars.
 - **Serverless**: Zero build steps, zero dependencies, and no backend required. It runs purely in the browser via native HTML, CSS, and Vanilla JavaScript.
 
-## How to Run
+## Live Demo
 
-Because this is a pure client-side application, running it is incredibly simple:
+🚀 **[Play with the Live Simulator Here](https://retirement-simulator-6qi.pages.dev/)**
+
+## How to Run Locally
+
+Because this is a pure client-side application, running it locally is incredibly simple:
 
 1. **Option 1 (Simple):** Just double-click the `index.html` file to open it directly in any modern web browser.
 2. **Option 2 (Local Server):** If you prefer to run it via a local server (recommended to avoid any local CORS warnings when fetching `data.json`), open your terminal in this directory and run:
