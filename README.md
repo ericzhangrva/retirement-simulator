@@ -25,6 +25,16 @@ Because this is a pure client-side application, running it locally is incredibly
    ```
    Then navigate to `http://localhost:8000` in your browser.
 
+## Updating Market Data
+
+The application uses a static `data.json` file to store historical monthly adjusted close prices. You can update this data with the latest market prices by running the included Python script:
+
+```bash
+pip install yfinance pandas
+python3 scripts/update_market_data.py
+```
+This will fetch the latest monthly adjusted close prices for SPY, QQQ, and DIA from Yahoo Finance and update `data.json`.
+
 ## Documentation & Architecture
 
 For a deep dive into the underlying systems, mathematical algorithms, CSS token systems, and Chart.js engineering, please refer to the comprehensive design document:

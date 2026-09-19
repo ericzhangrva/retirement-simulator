@@ -80,6 +80,8 @@ The application consists strictly of three core source files and one static data
 ### 2.1 Historical Adjusted Close Dataset (`data.json`)
 The application requires a static JSON payload containing historical month-end adjusted close prices. Adjusted close prices account for stock splits and assume instant, frictionless reinvestment of all dividends without tax drag.
 
+This data is updated and maintained via the `scripts/update_market_data.py` Python script, which utilizes the `yfinance` library to download the `period="max", interval="1mo"` adjusted close history for SPY, QQQ, and DIA.
+
 ```json
 {
   "SPY": {
