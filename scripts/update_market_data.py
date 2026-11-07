@@ -15,14 +15,17 @@ def update_market_data():
         data = {}
 
     import datetime
+    import calendar
     today = datetime.date.today()
-    # Compute first day of next month so we only skip truly-future months.
-    # This correctly includes the current month when run on its last day.
-    if today.month == 12:
-        next_month_date = datetime.date(today.year + 1, 1, 1)
+    last_day_of_month = calendar.monthrange(today.year, today.month)[1]
+
+    # If run on the last day of the month, the current month has closed and is included.
+    # Otherwise, the current month is still incomplete, so only completed months up to the previous month are included.
+    if today.day == last_day_of_month:
+        cutoff_month = today.strftime('%Y-%m')
     else:
-        next_month_date = datetime.date(today.year, today.month + 1, 1)
-    next_month_str = next_month_date.strftime('%Y-%m')
+        prev_month = today.replace(day=1) - datetime.timedelta(days=1)
+        cutoff_month = prev_month.strftime('%Y-%m')
 
     for symbol in symbols:
         print(f"Fetching data for {symbol}...")
@@ -41,8 +44,8 @@ def update_market_data():
         for date, row in hist.iterrows():
             month_str = date.strftime('%Y-%m')
             
-            # Skip months that haven't started yet (i.e., future months)
-            if month_str >= next_month_str:
+            # Skip incomplete current/future months beyond the cutoff month
+            if month_str > cutoff_month:
                 continue
             
             # yfinance returns 'Close' as the adjusted close price
